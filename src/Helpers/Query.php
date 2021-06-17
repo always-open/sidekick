@@ -21,10 +21,6 @@ class Query
     {
         $sql = $query->toSql();
 
-        /**
-         * @psalm-suppress UndefinedInterfaceMethod
-         */
-        $pdo = $query->getConnection()->getPdo();
         foreach ($query->getConnection()->prepareBindings($query->getBindings()) as $key => $binding) {
             $regex = is_numeric($key)
                 ? "/\?(?=(?:[^'\\\']*'[^'\\\']*')*[^'\\\']*$)/u"
@@ -33,7 +29,10 @@ class Query
             if ($binding === null) {
                 $binding = 'NULL';
             } elseif (! is_int($binding) && ! is_float($binding)) {
-                $binding = $pdo->quote($binding);
+                /**
+                 * @psalm-suppress UndefinedInterfaceMethod
+                 */
+                $binding = $query->getConnection()->getPdo()->quote($binding);
             }
 
             $sql = preg_replace($regex, (string) $binding, $sql, 1);
