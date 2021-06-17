@@ -93,11 +93,11 @@ class Strings
 
     public static function stringIdsToCollection(?String $ids): Collection
     {
-        return collect(explode(',', $ids))
-            ->map(function ($raw_id) {
+        return collect(explode(',', $ids ?? ''))
+            ->map(function (string $raw_id) {
                 return trim($raw_id);
             })
-            ->filter(function ($possible_id) {
+            ->filter(function (string $possible_id) {
                 return self::isInt($possible_id);
             })
             ->unique();

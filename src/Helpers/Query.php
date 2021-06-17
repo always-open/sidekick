@@ -17,10 +17,14 @@ class Query
      *
      * @return String
      */
-    public static function toString(Builder $query): String
+    public static function toString(Builder $query) : String
     {
         $sql = $query->toSql();
 
+        /**
+         * @psalm-suppress UndefinedInterfaceMethod
+         */
+        $pdo = $query->getConnection()->getPdo();
         foreach ($query->getConnection()->prepareBindings($query->getBindings()) as $key => $binding) {
             $regex = is_numeric($key)
                 ? "/\?(?=(?:[^'\\\']*'[^'\\\']*')*[^'\\\']*$)/u"
@@ -29,10 +33,10 @@ class Query
             if ($binding === null) {
                 $binding = 'NULL';
             } elseif (! is_int($binding) && ! is_float($binding)) {
-                $binding = $query->getConnection()->getPdo()->quote($binding);
+                $binding = $pdo->quote($binding);
             }
 
-            $sql = preg_replace($regex, $binding, $sql, 1);
+            $sql = preg_replace($regex, (string) $binding, $sql, 1);
         }
 
         return \SqlFormatter::format($sql, false);

@@ -8,9 +8,9 @@ use Domnikl\Statsd\Connection\UdpSocket;
 class StatsD
 {
     /**
-     * @var Client
+     * @var ?Client
      */
-    protected static $instance;
+    protected static ?Client $instance = null;
 
     public static function getInstance() : Client
     {
@@ -22,27 +22,27 @@ class StatsD
         return self::$instance;
     }
 
-    public static function increment(String $key, array $tags = [])
+    public static function increment(String $key, array $tags = []) : void
     {
         self::getInstance()->increment($key, 1.0, $tags);
     }
 
-    public static function decrement(String $key, array $tags = [])
+    public static function decrement(String $key, array $tags = []) : void
     {
         self::getInstance()->decrement($key, 1.0, $tags);
     }
 
-    public static function count(String $key, int $count, array $tags = [])
+    public static function count(String $key, int $count, array $tags = []) : void
     {
         self::getInstance()->count($key, $count, 1.0, $tags);
     }
 
-    public static function startTiming(String $key)
+    public static function startTiming(String $key) : void
     {
         self::getInstance()->startTiming($key);
     }
 
-    public static function endTiming(String $key, array $tags = [])
+    public static function endTiming(String $key, array $tags = []) : void
     {
         self::getInstance()->endTiming($key, 1.0, $tags);
     }
