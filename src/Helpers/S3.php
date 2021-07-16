@@ -53,10 +53,10 @@ class S3
     {
         $config = [
             'credentials' => [
-                'key'    => env('AWS_ACCESS_KEY_ID', ''),
+                'key' => env('AWS_ACCESS_KEY_ID', ''),
                 'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
             ],
-            'region'  => env('AWS_REGION', 'us-east-2'),
+            'region' => env('AWS_REGION', 'us-east-2'),
             'version' => 'latest',
         ];
 
@@ -170,7 +170,7 @@ class S3
 
         $object = [
             'Bucket' => $destination_bucket ?? self::getBucket(),
-            'Key'    => $key,
+            'Key' => $key,
         ];
 
         if (null !== $path) {
