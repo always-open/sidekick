@@ -17,10 +17,11 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "spatie/laravel-package-tools": "^1.4.3",
         "illuminate/contracts": "^8.37",
+        "jdorn/sql-formatter": "^1.2",
+        "league/flysystem-aws-s3-v3": ">=1.0",
         "slickdeals/statsd": "~3.0",
-        "jdorn/sql-formatter": "^1.2"
+        "spatie/laravel-package-tools": "^1.4.3"
     },
     "require-dev": {
         "brianium/paratest": "^6.2",
