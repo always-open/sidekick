@@ -39,7 +39,7 @@ class Email
 
     public static function normalizeFullEmail(String $emailAddress) : string
     {
-        if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException('Invalid email address');
         }
         [$name, $domain] = explode('@', $emailAddress);
