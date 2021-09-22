@@ -17,10 +17,72 @@ composer require bluefyn-international/sidekick
 
 ## Usage
 
+### Helpers
+
+#### String Helper
 ```php
 $ids = BluefynInternational\Helpers\Strings::stringIdsToCollection('1,3,45, asdf,66,1,45,3');
 var_dump($ids);
 ```
+
+
+### Traits
+
+#### ByName
+Add the trait to your model:
+```php
+<?php
+
+namespace App\Models;
+
+namespace BluefynInternational\Sidekick\Models\Traits\ByName;
+
+class OrderStage extends Model
+{
+    use ByName;
+    
+    const NEXT_DAY = 'Next Day';
+   ...
+}
+```
+Use the trait to get the model by its name:
+```php
+$overnight = OrderStage::byName('overnight');
+```
+
+Works nicely when you're doing work with consts:
+```php
+$overnight = OrderStage::byName(OrderStage::NEXT_DAY);
+```
+
+#### CascadeUpdate
+This trait is good if you need to update a last updated timestamp on related models such as a parent child relationship 
+or line items on a document.
+
+In the example class `Docuemnt` has multiple `LineItem` instances as children.
+
+Within this exmaple you will need to override the `getRelationshipsToUpdate` method:
+```php
+class LineItem extends Model
+{
+    use CascadeUpdate;
+
+    public function getRelationshipsToUpdate() : array
+    {
+        return [
+            'Document',
+        ];
+    }
+
+    public function CascadeUpdate() : HasOne
+```
+
+When an instance of LineItem is saved the `UPDATED_AT` column on the owner `Document` will be updated as well.
+
+#### Ordered
+This trait ensures that all instances have a sort column value that is next in line. Future TODO is to make it update 
+other instances when one of their sort values is updated to keep all in proper order.
+
 
 ## Testing
 
