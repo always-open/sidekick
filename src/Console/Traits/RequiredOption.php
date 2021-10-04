@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Traits;
+namespace BluefynInternational\Sidekick\Console\Traits;
 
 trait RequiredOption
 {
