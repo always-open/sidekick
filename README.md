@@ -15,6 +15,12 @@ You can install the package via composer:
 composer require bluefyn-international/sidekick
 ```
 
+## Version Support
+| Sidekick version | PHP Version     |
+|------------------|-----------------|
+| 1.x              | PHP 7.4 and 8.x |
+| 2.x              | PHP 8.x+        |
+
 ## Usage
 
 ### Helpers
