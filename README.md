@@ -24,6 +24,20 @@ composer require bluefyn-international/sidekick
 $ids = BluefynInternational\Helpers\Strings::stringIdsToCollection('1,3,45, asdf,66,1,45,3');
 var_dump($ids);
 ```
+#### Routes Helper
+This helper stops redirect loops where a `url()->previous()` might be used but the user could have directly input the 
+url so `previous` and `current` are the same. This helper stops that from happening while allowing you to specify where 
+to go if that scenario happens.
+
+If the user can edit user profiles and reach it from multiple screens the redirect response after saving might look like 
+this:
+```php
+return response()->redirectTo(
+    BluefynInternational\Helpers\Routes::toRouteIfBackIsLoop('user.report')
+);
+```
+
+Here the user will either go to their previous URL or get sent to the user report.
 
 
 ### Traits
