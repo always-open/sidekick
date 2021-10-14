@@ -11,6 +11,6 @@ class SidekickFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'sidekick';
+        return 'Sidekick';
     }
 }
