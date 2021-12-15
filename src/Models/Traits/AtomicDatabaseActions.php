@@ -16,6 +16,16 @@ trait AtomicDatabaseActions
         return self::atomicDatabaseAction('updateOrCreate', $attributes, $values);
     }
 
+    public static function firstOrNewAtomic(array $attributes, array $values = []) : static
+    {
+        return self::atomicDatabaseAction('firstOrNew', $attributes, $values);
+    }
+
+    public static function updateOrInsertAtomic(array $attributes, array $values = []) : static
+    {
+        return self::atomicDatabaseAction('updateOrInsert', $attributes, $values);
+    }
+
     protected static function atomicDatabaseAction(string $action, array $attributes, array $values = []) : static
     {
         $cache_key = self::getAtomicCacheKey($attributes);
