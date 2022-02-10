@@ -7,6 +7,7 @@ use Aws\S3\S3Client;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemException;
 
 class S3
 {
@@ -80,15 +81,15 @@ class S3
     }
 
     /**
-     * @param string $path
-     *
-     * @return bool
+     * @throws FilesystemException
      */
     public static function delete(string $path): bool
     {
         try {
-            return self::getS3Filesystem($path)
+            self::getS3Filesystem($path)
                 ->delete(self::getS3FilePath($path));
+
+            return true;
         } catch (FileNotFoundException $e) {
             return true;
         } catch (\Exception $ex) {
