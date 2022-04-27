@@ -42,6 +42,8 @@ trait AtomicDatabaseActions
 
     protected static function getAtomicCacheKey(array $attributes) : string
     {
-        return get_called_class() . ':' . md5(serialize(sort($attributes)));
+        sort($attributes);
+
+        return get_called_class() . ':' . md5(serialize($attributes));
     }
 }
