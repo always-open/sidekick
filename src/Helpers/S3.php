@@ -4,8 +4,7 @@ namespace BluefynInternational\Sidekick\Helpers;
 
 use Aws\Result;
 use Aws\S3\S3Client;
-use League\Flysystem\AwsS3v3\AwsS3Adapter;
-use League\Flysystem\FileNotFoundException;
+use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
 use League\Flysystem\Filesystem;
 
 class S3
@@ -74,7 +73,7 @@ class S3
 
         $client = self::getS3Client();
 
-        $adapter = new AwsS3Adapter($client, $bucket);
+        $adapter = new AwsS3V3Adapter($client, $bucket);
 
         return new Filesystem($adapter);
     }
@@ -83,27 +82,29 @@ class S3
      * @param string $path
      *
      * @return bool
+     *
+     * @throws \League\Flysystem\FilesystemException
      */
     public static function delete(string $path): bool
     {
         try {
-            return self::getS3Filesystem($path)
+            self::getS3Filesystem($path)
                 ->delete(self::getS3FilePath($path));
-        } catch (FileNotFoundException $e) {
-            return true;
         } catch (\Exception $ex) {
             return false;
         }
+
+        return true;
     }
 
     /**
      * @param string $path
      *
-     * @throws FileNotFoundException
+     * @return string
      *
-     * @return false|mixed|string
+     * @throws \League\Flysystem\FilesystemException
      */
-    public static function getContent(string $path)
+    public static function getContent(string $path): string
     {
         $filePath = self::getS3FilePath($path);
 
