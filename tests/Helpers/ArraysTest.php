@@ -1,9 +1,9 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Tests\Helpers;
+namespace AlwaysOpen\Sidekick\Tests\Helpers;
 
-use BluefynInternational\Sidekick\Helpers\Arrays;
-use BluefynInternational\Sidekick\Tests\TestCase;
+use AlwaysOpen\Sidekick\Helpers\Arrays;
+use AlwaysOpen\Sidekick\Tests\TestCase;
 
 class ArraysTest extends TestCase
 {

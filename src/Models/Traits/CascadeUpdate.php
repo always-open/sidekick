@@ -1,8 +1,8 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Models\Traits;
+namespace AlwaysOpen\Sidekick\Models\Traits;
 
-use BluefynInternational\Sidekick\Observers\CascadeUpdateObserver;
+use AlwaysOpen\Sidekick\Observers\CascadeUpdateObserver;
 
 trait CascadeUpdate
 {

@@ -1,9 +1,9 @@
 # A collection of helper classes to make fighting the good fight easier
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/bluefyn-international/sidekick.svg?style=flat-square)](https://packagist.org/packages/bluefyn-international/sidekick)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/bluefyn-international/sidekick/run-tests?label=tests)](https://github.com/bluefyn-international/sidekick/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/bluefyn-international/sidekick/Check%20&%20fix%20styling?label=code%20style)](https://github.com/bluefyn-international/sidekick/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/bluefyn-international/sidekick.svg?style=flat-square)](https://packagist.org/packages/bluefyn-international/sidekick)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/always-open/sidekick.svg?style=flat-square)](https://packagist.org/packages/always-open/sidekick)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/always-open/sidekick/run-tests?label=tests)](https://github.com/always-open/sidekick/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/always-open/sidekick/Check%20&%20fix%20styling?label=code%20style)](https://github.com/always-open/sidekick/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/always-open/sidekick.svg?style=flat-square)](https://packagist.org/packages/always-open/sidekick)
 
 Collection of helper classes to make fighting the good fight even easier.
 
@@ -12,14 +12,14 @@ Collection of helper classes to make fighting the good fight even easier.
 You can install the package via composer:
 
 ```bash
-composer require bluefyn-international/sidekick
+composer require always-open/sidekick
 ```
 
 ## Version Support
 | Sidekick version | PHP Version     |
 |------------------|-----------------|
 | 1.x              | PHP 7.4 and 8.x |
-| 2.x              | PHP 8.x+        |
+| 4.x              | PHP 8.x+        |
 
 ## Usage
 
@@ -27,7 +27,7 @@ composer require bluefyn-international/sidekick
 
 #### String Helper
 ```php
-$ids = BluefynInternational\Helpers\Strings::stringIdsToCollection('1,3,45, asdf,66,1,45,3');
+$ids = AlwaysOpen\Helpers\Strings::stringIdsToCollection('1,3,45, asdf,66,1,45,3');
 var_dump($ids);
 ```
 #### Routes Helper
@@ -39,7 +39,7 @@ If the user can edit user profiles and reach it from multiple screens the redire
 this:
 ```php
 return response()->redirectTo(
-    BluefynInternational\Helpers\Routes::toRouteIfBackIsLoop('user.report')
+    AlwaysOpen\Helpers\Routes::toRouteIfBackIsLoop('user.report')
 );
 ```
 
@@ -55,7 +55,7 @@ Add the trait to your model:
 
 namespace App\Models;
 
-namespace BluefynInternational\Sidekick\Models\Traits\ByName;
+namespace AlwaysOpen\Sidekick\Models\Traits\ByName;
 
 class OrderStage extends Model
 {
@@ -124,7 +124,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [BluefynInternational](https://github.com/bluefyn-international)
+- [AlwaysOpen](https://github.com/always-open)
 
 ## License
 

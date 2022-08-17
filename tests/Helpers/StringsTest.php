@@ -1,10 +1,10 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Tests\Helpers;
+namespace AlwaysOpen\Sidekick\Tests\Helpers;
 
-use BluefynInternational\Sidekick\Helpers\Strings;
-use BluefynInternational\Sidekick\SidekickFacade;
-use BluefynInternational\Sidekick\Tests\TestCase;
+use AlwaysOpen\Sidekick\Helpers\Strings;
+use AlwaysOpen\Sidekick\SidekickFacade;
+use AlwaysOpen\Sidekick\Tests\TestCase;
 
 class StringsTest extends TestCase
 {

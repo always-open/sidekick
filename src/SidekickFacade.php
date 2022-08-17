@@ -1,11 +1,11 @@
 <?php
 
-namespace BluefynInternational\Sidekick;
+namespace AlwaysOpen\Sidekick;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \BluefynInternational\Sidekick\Sidekick
+ * @see \AlwaysOpen\Sidekick\Sidekick
  */
 class SidekickFacade extends Facade
 {

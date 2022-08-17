@@ -1,9 +1,9 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Models\Traits;
+namespace AlwaysOpen\Sidekick\Models\Traits;
 
-use BluefynInternational\Sidekick\Observers\OrderedObserver;
-use BluefynInternational\Sidekick\Scopes\OrderedScope;
+use AlwaysOpen\Sidekick\Observers\OrderedObserver;
+use AlwaysOpen\Sidekick\Scopes\OrderedScope;
 
 trait Ordered
 {

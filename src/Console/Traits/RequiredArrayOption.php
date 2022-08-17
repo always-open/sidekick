@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Console\Traits;
+namespace AlwaysOpen\Sidekick\Console\Traits;
 
 trait RequiredArrayOption
 {

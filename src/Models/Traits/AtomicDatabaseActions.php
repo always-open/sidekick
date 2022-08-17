@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Models\Traits;
+namespace AlwaysOpen\Sidekick\Models\Traits;
 
 use Illuminate\Support\Facades\Cache;
 

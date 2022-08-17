@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Helpers;
+namespace AlwaysOpen\Sidekick\Helpers;
 
 use Domnikl\Statsd\Client;
 use Domnikl\Statsd\Connection\UdpSocket;

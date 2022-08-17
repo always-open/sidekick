@@ -1,17 +1,17 @@
 {
-    "name": "bluefyn-international/sidekick",
+    "name": "always-open/sidekick",
     "description": "A collection of helper classes to make fighting the good fight easier",
     "keywords": [
-        "bluefyn-international",
+        "always-open",
         "laravel",
         "sidekick"
     ],
-    "homepage": "https://github.com/bluefyn-international/sidekick",
+    "homepage": "https://github.com/always-open/sidekick",
     "license": "MIT",
     "authors": [
         {
-            "name": "BluefynInternational",
-            "email": "quentin.schmick@nathanjames.com",
+            "name": "AlwaysOpen",
+            "email": "qschmick@gmail.com",
             "role": "Developer"
         }
     ],
@@ -33,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "BluefynInternational\\Sidekick\\": "src"
+            "AlwaysOpen\\Sidekick\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BluefynInternational\\Sidekick\\Tests\\": "tests"
+            "AlwaysOpen\\Sidekick\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -52,7 +52,7 @@
     "extra": {
         "laravel": {
             "aliases": {
-                "Sidekick": "BluefynInternational\\Sidekick\\SidekickFacade"
+                "Sidekick": "AlwaysOpen\\Sidekick\\SidekickFacade"
             }
         }
     },

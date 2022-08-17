@@ -1,9 +1,9 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Tests\Helpers;
+namespace AlwaysOpen\Sidekick\Tests\Helpers;
 
-use BluefynInternational\Sidekick\Helpers\Query;
-use BluefynInternational\Sidekick\Tests\TestCase;
+use AlwaysOpen\Sidekick\Helpers\Query;
+use AlwaysOpen\Sidekick\Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 
 class QueryTest extends TestCase

@@ -1,2 +1,2 @@
 providers:
-  - BluefynInternational\Sidekick\SidekickServiceProvider
+  - AlwaysOpen\Sidekick\SidekickServiceProvider

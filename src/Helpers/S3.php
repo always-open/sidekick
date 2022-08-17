@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Helpers;
+namespace AlwaysOpen\Sidekick\Helpers;
 
 use Aws\Result;
 use Aws\S3\S3Client;

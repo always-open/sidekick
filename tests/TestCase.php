@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Tests;
+namespace AlwaysOpen\Sidekick\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
 

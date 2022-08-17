@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick;
+namespace AlwaysOpen\Sidekick;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;

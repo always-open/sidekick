@@ -1,9 +1,9 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Tests\Helpers;
+namespace AlwaysOpen\Sidekick\Tests\Helpers;
 
-use BluefynInternational\Sidekick\Helpers\S3;
-use BluefynInternational\Sidekick\Tests\TestCase;
+use AlwaysOpen\Sidekick\Helpers\S3;
+use AlwaysOpen\Sidekick\Tests\TestCase;
 
 class S3Test extends TestCase
 {

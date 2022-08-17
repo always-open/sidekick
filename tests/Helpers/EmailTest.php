@@ -1,9 +1,9 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Tests\Helpers;
+namespace AlwaysOpen\Sidekick\Tests\Helpers;
 
-use BluefynInternational\Sidekick\Helpers\Email;
-use BluefynInternational\Sidekick\Tests\TestCase;
+use AlwaysOpen\Sidekick\Helpers\Email;
+use AlwaysOpen\Sidekick\Tests\TestCase;
 
 class EmailTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Scopes;
+namespace AlwaysOpen\Sidekick\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

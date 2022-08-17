@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Helpers;
+namespace AlwaysOpen\Sidekick\Helpers;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;

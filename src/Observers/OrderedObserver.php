@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Observers;
+namespace AlwaysOpen\Sidekick\Observers;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

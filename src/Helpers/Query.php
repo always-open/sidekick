@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\Sidekick\Helpers;
+namespace AlwaysOpen\Sidekick\Helpers;
 
 use Illuminate\Database\Query\Builder;
 
