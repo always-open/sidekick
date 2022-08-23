@@ -3,18 +3,21 @@
 namespace AlwaysOpen\Sidekick\Jobs;
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Bus\PendingClosureDispatch;
-use Illuminate\Foundation\Bus\PendingDispatch;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Foundation\Bus\PendingClosureDispatch;
+use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Cache;
 
 class DebouncedJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected string $_cacheKey;
     protected bool $_debounced = false;
