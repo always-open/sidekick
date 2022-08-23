@@ -18,6 +18,7 @@ class DebouncedJob implements ShouldQueue
 
     protected string $_cacheKey;
     protected bool $_debounced = false;
+    private static int $MICROSECONDS_SLEEP = 100000;
 
     public static function dispatchAndDebounce(
         ShouldQueue $jobToDebounce,
@@ -59,14 +60,44 @@ class DebouncedJob implements ShouldQueue
             return;
         }
 
-        while (
-            ! $this->minimumWaitComplete()
-            && ! $this->maximumWaitComplete()
-        ) {
-            usleep(100000); // Sleep 100 milliseconds between checks
+        $this->checkAndWaitUntilReady();
+
+        $lock = tap(Cache::lock($this->getCacheKey(), 6))->block(6);
+
+        try {
+            $this->dispatch($this->_jobToDebounce);
+        } finally {
+            Cache::forget($this->getMaximumWaitTimeKey());
+            Cache::forget($this->getMinimumWaitTimeKey());
+            Cache::forget($this->getDebounceKey());
+
+            $lock->release();
+        }
+    }
+
+    protected function checkAndWaitUntilReady() : void
+    {
+        $maximum = Cache::get($this->getMaximumWaitTimeKey());
+        $minimum = Cache::get($this->getMinimumWaitTimeKey());
+
+        if (! $maximum) {
+            while (! $this->minimumWaitComplete()) {
+                $this->setDebounce();
+                usleep(self::$MICROSECONDS_SLEEP);
+            }
         }
 
-        $this->dispatch($this->_jobToDebounce);
+        if (! $minimum) {
+            while (! $this->maximumWaitComplete()) {
+                $this->setDebounce();
+                usleep(self::$MICROSECONDS_SLEEP);
+            }
+        }
+
+        while ($this->getMinimumMillisecondsLeft() > 0) {
+            $this->setDebounce();
+            usleep(self::$MICROSECONDS_SLEEP);
+        }
     }
 
     protected function debounceExists() : bool
@@ -74,9 +105,9 @@ class DebouncedJob implements ShouldQueue
         return Cache::has($this->getDebounceKey());
     }
 
-    protected function setDebounce() : string
+    protected function setDebounce() : void
     {
-        return Cache::put($this->getDebounceKey(), true, now()->addMilliseconds($this->getMaximumMillisecondsLeft()));
+        Cache::put($this->getDebounceKey(), true, now()->addMilliseconds($this->getMaximumMillisecondsLeft() + self::$MICROSECONDS_SLEEP));
     }
 
     protected function getDebounceKey() : string
@@ -123,14 +154,6 @@ class DebouncedJob implements ShouldQueue
          */
         $maximum = Cache::get($this->getMaximumWaitTimeKey());
 
-        if (! $maximum) {
-            return true;
-        }
-
-        if ($maximum->isPast()) {
-            return true;
-        }
-
         return ! $maximum || $maximum->isPast();
     }
 
@@ -153,7 +176,7 @@ class DebouncedJob implements ShouldQueue
         return $this->_cacheKey;
     }
 
-    protected function getWaitMillisecondsLeft() : int
+    protected function getMinimumMillisecondsLeft() : int
     {
         /**
          * @var Carbon|null $minimum
@@ -162,15 +185,15 @@ class DebouncedJob implements ShouldQueue
         $minimum = Cache::get($this->getMinimumWaitTimeKey());
         $maximum = Cache::get($this->getMaximumWaitTimeKey());
 
-        if (! $minimum && ! $maximum) {
-            return 0;
+        if ($minimum && $maximum) {
+            return min($maximum->diffInMilliseconds(now()), $minimum->diffInMilliseconds(now()));
         }
 
-        if (! $maximum) {
+        if ($minimum) {
             return $minimum->diffInMilliseconds(now());
         }
 
-        return min($maximum->diffInMilliseconds(now()), $minimum->diffInMilliseconds(now()));
+        return 0;
     }
 
     protected function getMaximumMillisecondsLeft() : int
