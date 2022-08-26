@@ -187,13 +187,14 @@ class DebouncedJob implements ShouldQueue
          */
         $minimum = Cache::get($this->getMinimumWaitTimeKey());
         $maximum = Cache::get($this->getMaximumWaitTimeKey());
+        $now = now();
 
         if ($minimum && $maximum) {
-            return min($maximum->diffInMilliseconds(now()), $minimum->diffInMilliseconds(now()));
+            return min($maximum->diffInMilliseconds($now), $minimum->diffInMilliseconds($now));
         }
 
         if ($minimum) {
-            return $minimum->diffInMilliseconds(now());
+            return $minimum->diffInMilliseconds($now);
         }
 
         return 0;
@@ -207,17 +208,18 @@ class DebouncedJob implements ShouldQueue
          */
         $minimum = Cache::get($this->getMinimumWaitTimeKey());
         $maximum = Cache::get($this->getMaximumWaitTimeKey());
+        $now = now();
 
         if ($minimum && $maximum) {
-            return max($maximum->diffInMilliseconds(now()), $minimum->diffInMilliseconds(now()));
+            return max($maximum->diffInMilliseconds($now), $minimum->diffInMilliseconds($now));
         }
 
         if ($maximum) {
-            return $maximum->diffInMilliseconds(now());
+            return $maximum->diffInMilliseconds($now);
         }
 
         if ($minimum) {
-            return $minimum->diffInMilliseconds(now());
+            return $minimum->diffInMilliseconds($now);
         }
 
         return 0;
