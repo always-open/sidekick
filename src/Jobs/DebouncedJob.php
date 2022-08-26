@@ -68,7 +68,7 @@ class DebouncedJob implements ShouldQueue
         $lock = tap(Cache::lock($this->getCacheKey(), 6))->block(6);
 
         try {
-            $this->dispatch($this->_jobToDebounce);
+            dispatch($this->_jobToDebounce);
         } finally {
             Cache::forget($this->getMaximumWaitTimeKey());
             Cache::forget($this->getMinimumWaitTimeKey());
