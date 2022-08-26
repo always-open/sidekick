@@ -216,6 +216,10 @@ class DebouncedJob implements ShouldQueue
             return $maximum->diffInMilliseconds(now());
         }
 
-        return $minimum->diffInMilliseconds(now());
+        if ($minimum) {
+            return $minimum->diffInMilliseconds(now());
+        }
+
+        return 0;
     }
 }
