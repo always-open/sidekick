@@ -88,18 +88,16 @@ class DebouncedJob implements ShouldQueue
                 $this->setDebounce();
                 usleep(self::$MICROSECONDS_SLEEP);
             }
-        }
-
-        if (! $minimum && $maximum) {
+        } elseif (! $minimum && $maximum) {
             while (! $this->maximumWaitComplete()) {
                 $this->setDebounce();
                 usleep(self::$MICROSECONDS_SLEEP);
             }
-        }
-
-        while ($this->getMinimumMillisecondsLeft() > 0) {
-            $this->setDebounce();
-            usleep(self::$MICROSECONDS_SLEEP);
+        } else {
+            while ($this->getMinimumMillisecondsLeft() > 0) {
+                $this->setDebounce();
+                usleep(self::$MICROSECONDS_SLEEP);
+            }
         }
     }
 
