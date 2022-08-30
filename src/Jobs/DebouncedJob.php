@@ -83,14 +83,14 @@ class DebouncedJob implements ShouldQueue
         $maximum = Cache::get($this->getMaximumWaitTimeKey());
         $minimum = Cache::get($this->getMinimumWaitTimeKey());
 
-        if (! $maximum) {
+        if (! $maximum && $minimum) {
             while (! $this->minimumWaitComplete()) {
                 $this->setDebounce();
                 usleep(self::$MICROSECONDS_SLEEP);
             }
         }
 
-        if (! $minimum) {
+        if (! $minimum && $maximum) {
             while (! $this->maximumWaitComplete()) {
                 $this->setDebounce();
                 usleep(self::$MICROSECONDS_SLEEP);
@@ -190,11 +190,11 @@ class DebouncedJob implements ShouldQueue
         $now = now();
 
         if ($minimum && $maximum) {
-            return min($maximum->diffInMilliseconds($now), $minimum->diffInMilliseconds($now));
+            return min($now->diffInMilliseconds($maximum, absolute: false), $now->diffInMilliseconds($minimum, absolute: false));
         }
 
         if ($minimum) {
-            return $minimum->diffInMilliseconds($now);
+            return $now->diffInMilliseconds($minimum, absolute: false);
         }
 
         return 0;
@@ -211,15 +211,15 @@ class DebouncedJob implements ShouldQueue
         $now = now();
 
         if ($minimum && $maximum) {
-            return max($maximum->diffInMilliseconds($now), $minimum->diffInMilliseconds($now));
+            return max($now->diffInMilliseconds($maximum, absolute: false), $now->diffInMilliseconds($minimum, absolute: false));
         }
 
         if ($maximum) {
-            return $maximum->diffInMilliseconds($now);
+            return $now->diffInMilliseconds($maximum, absolute: false);
         }
 
         if ($minimum) {
-            return $minimum->diffInMilliseconds($now);
+            return $now->diffInMilliseconds($minimum, absolute: false);
         }
 
         return 0;
