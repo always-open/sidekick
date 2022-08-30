@@ -80,8 +80,8 @@ class DebouncedJob implements ShouldQueue
 
     protected function checkAndWaitUntilReady() : void
     {
-        $maximum = Cache::get($this->getMaximumWaitTimeKey(), -1);
-        $minimum = Cache::get($this->getMinimumWaitTimeKey(), -1);
+        $maximum = Cache::get($this->getMaximumWaitTimeKey());
+        $minimum = Cache::get($this->getMinimumWaitTimeKey());
 
         if (! $maximum && $minimum) {
             while (! $this->minimumWaitComplete()) {
