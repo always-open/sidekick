@@ -190,11 +190,11 @@ class DebouncedJob implements ShouldQueue
         $now = now();
 
         if ($minimum && $maximum) {
-            return min($maximum->diffInMilliseconds($now, absolute: false), $minimum->diffInMilliseconds($now, absolute: false));
+            return min($now->diffInMilliseconds($maximum, absolute: false), $now->diffInMilliseconds($minimum, absolute: false));
         }
 
         if ($minimum) {
-            return $minimum->diffInMilliseconds($now, absolute: false);
+            return $now->diffInMilliseconds($minimum, absolute: false);
         }
 
         return 0;
@@ -211,15 +211,15 @@ class DebouncedJob implements ShouldQueue
         $now = now();
 
         if ($minimum && $maximum) {
-            return max($maximum->diffInMilliseconds($now, absolute: false), $minimum->diffInMilliseconds($now, absolute: false));
+            return max($now->diffInMilliseconds($maximum, absolute: false), $now->diffInMilliseconds($minimum, absolute: false));
         }
 
         if ($maximum) {
-            return $maximum->diffInMilliseconds($now, absolute: false);
+            return $now->diffInMilliseconds($maximum, absolute: false);
         }
 
         if ($minimum) {
-            return $minimum->diffInMilliseconds($now, absolute: false);
+            return $now->diffInMilliseconds($minimum, absolute: false);
         }
 
         return 0;
