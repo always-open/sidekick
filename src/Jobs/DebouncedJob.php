@@ -168,7 +168,7 @@ class DebouncedJob implements ShouldQueue
         $this->_cacheKey = sprintf(
             '%s:%s',
             get_class($this->_jobToDebounce),
-            spl_object_hash($this->_jobToDebounce),
+            sha1(json_encode($this->_jobToDebounce)),
         );
     }
 
