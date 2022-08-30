@@ -22,39 +22,38 @@ class DebouncedJob implements ShouldQueue
     protected string $_cacheKey;
     protected bool $_debounced = false;
     private static int $MICROSECONDS_SLEEP = 100000;
+    public ShouldQueue $_jobToDebounce;
+    public int         $_minimumMillisecondsToWait = 0;
+    public int|null    $_maximumMillisecondsToWait = null;
 
     public static function dispatchAndDebounce(
         ShouldQueue $jobToDebounce,
         int         $minimumMillisecondsToWait,
         int|null    $maximumMillisecondsToWait = null,
     ) : PendingClosureDispatch|PendingDispatch {
-        return dispatch(new self(
-            $jobToDebounce,
-            $minimumMillisecondsToWait,
-            $maximumMillisecondsToWait
-        ));
-    }
+        $debouncer = new self();
 
-    public function __construct(
-        public ShouldQueue $_jobToDebounce,
-        public int         $_minimumMillisecondsToWait,
-        public int|null    $_maximumMillisecondsToWait = null,
-    ) {
-        $this->calculateCacheKey();
-        $lock = tap(Cache::lock($this->getCacheKey(), 5))->block(3);
+        $debouncer->_jobToDebounce = $jobToDebounce;
+        $debouncer->_minimumMillisecondsToWait = $minimumMillisecondsToWait;
+        $debouncer->_maximumMillisecondsToWait = $maximumMillisecondsToWait;
+        $debouncer->calculateCacheKey();
+
+        $lock = tap(Cache::lock($debouncer->getCacheKey(), 5))->block(3);
 
         try {
-            if ($this->debounceExists()) {
-                $this->_debounced = true;
+            if ($debouncer->debounceExists()) {
+                $debouncer->_debounced = true;
             } else {
-                $this->setDebounce();
-                $this->persistMaximumWaitTime();
+                $debouncer->setDebounce();
+                $debouncer->persistMaximumWaitTime();
             }
 
-            $this->persistMinimumWaitTime();
+            $debouncer->persistMinimumWaitTime();
         } finally {
             $lock->release();
         }
+
+        return dispatch($debouncer);
     }
 
     public function handle()
