@@ -120,7 +120,12 @@ class DebouncedJob implements ShouldQueue
 
     protected function persistMinimumWaitTime() : void
     {
-        $minimum = now()->addMilliseconds($this->_minimumMillisecondsToWait);
+        $configMaxDebounceMilliseconds = config('sidekick.debounced_job_maximum_debounce_milliseconds');
+        $millisecondsToWait = $configMaxDebounceMilliseconds ?
+            min($configMaxDebounceMilliseconds, $this->_minimumMillisecondsToWait) :
+            $this->_minimumMillisecondsToWait;
+
+        $minimum = now()->addMilliseconds($millisecondsToWait);
 
         Cache::put($this->getMinimumWaitTimeKey(), $minimum, $minimum->addMinute());
     }
@@ -144,7 +149,12 @@ class DebouncedJob implements ShouldQueue
     {
         $maximum = null;
         if ($this->_maximumMillisecondsToWait) {
-            $maximum = now()->addMilliseconds($this->_maximumMillisecondsToWait);
+            $configMaxDebounceMilliseconds = config('sidekick.debounced_job_maximum_debounce_milliseconds');
+            $millisecondsToWait = $configMaxDebounceMilliseconds ?
+                min($configMaxDebounceMilliseconds, $this->_maximumMillisecondsToWait) :
+                $this->_maximumMillisecondsToWait;
+
+            $maximum = now()->addMilliseconds($millisecondsToWait);
         }
 
         Cache::put($this->getMaximumWaitTimeKey(), $maximum, $maximum?->addMinute());
