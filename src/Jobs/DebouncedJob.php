@@ -80,17 +80,17 @@ class DebouncedJob implements ShouldQueue
 
     protected function checkAndWaitUntilReady() : void
     {
-        $maximum = Cache::get($this->getMaximumWaitTimeKey());
-        $minimum = Cache::get($this->getMinimumWaitTimeKey());
+        $maximum = Cache::get($this->getMaximumWaitTimeKey(), -1);
+        $minimum = Cache::get($this->getMinimumWaitTimeKey(), -1);
 
-        if (! $maximum) {
+        if (! $maximum && $minimum) {
             while (! $this->minimumWaitComplete()) {
                 $this->setDebounce();
                 usleep(self::$MICROSECONDS_SLEEP);
             }
         }
 
-        if (! $minimum) {
+        if (! $minimum && $maximum) {
             while (! $this->maximumWaitComplete()) {
                 $this->setDebounce();
                 usleep(self::$MICROSECONDS_SLEEP);
@@ -190,11 +190,11 @@ class DebouncedJob implements ShouldQueue
         $now = now();
 
         if ($minimum && $maximum) {
-            return min($maximum->diffInMilliseconds($now), $minimum->diffInMilliseconds($now));
+            return min($maximum->diffInMilliseconds($now, absolute: false), $minimum->diffInMilliseconds($now, absolute: false));
         }
 
         if ($minimum) {
-            return $minimum->diffInMilliseconds($now);
+            return $minimum->diffInMilliseconds($now, absolute: false);
         }
 
         return 0;
@@ -211,15 +211,15 @@ class DebouncedJob implements ShouldQueue
         $now = now();
 
         if ($minimum && $maximum) {
-            return max($maximum->diffInMilliseconds($now), $minimum->diffInMilliseconds($now));
+            return max($maximum->diffInMilliseconds($now, absolute: false), $minimum->diffInMilliseconds($now, absolute: false));
         }
 
         if ($maximum) {
-            return $maximum->diffInMilliseconds($now);
+            return $maximum->diffInMilliseconds($now, absolute: false);
         }
 
         if ($minimum) {
-            return $minimum->diffInMilliseconds($now);
+            return $minimum->diffInMilliseconds($now, absolute: false);
         }
 
         return 0;
