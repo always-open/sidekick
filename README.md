@@ -4,6 +4,7 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/always-open/sidekick/run-tests?label=tests)](https://github.com/always-open/sidekick/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/always-open/sidekick/Check%20&%20fix%20styling?label=code%20style)](https://github.com/always-open/sidekick/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/always-open/sidekick.svg?style=flat-square)](https://packagist.org/packages/always-open/sidekick)
+[![Maintainability](https://api.codeclimate.com/v1/badges/49ee42b487aad513866f/maintainability)](https://codeclimate.com/github/always-open/sidekick/maintainability)
 
 Collection of helper classes to make fighting the good fight even easier.
 
