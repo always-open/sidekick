@@ -16,8 +16,8 @@
         }
     ],
     "require": {
-        "php": "^8.0.0|^8.1.0",
-        "illuminate/contracts": "^9.0",
+        "php": "^8.0.0|^8.1.0|^8.2.0",
+        "illuminate/contracts": "^9.0|^10.0",
         "jdorn/sql-formatter": "^1.2",
         "league/flysystem-aws-s3-v3": "^3.0",
         "slickdeals/statsd": "~3.0",
