@@ -16,6 +16,6 @@ trait RequiredArrayOption
      */
     protected function requiredArrayOption(string $key, string $delimiter = ','): array
     {
-        return array_filter(explode($delimiter, $this->requiredOption($key)));
+        return array_filter(explode($delimiter, $this->requiredOption($key) ?? ''));
     }
 }
