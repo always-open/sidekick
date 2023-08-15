@@ -12,6 +12,6 @@ trait ArrayOption
      */
     protected function arrayOption(string $key, string $delimiter = ','): array
     {
-        return array_filter(explode($delimiter, $this->option($key)));
+        return array_filter(explode($delimiter, $this->option($key) ?? ''));
     }
 }
