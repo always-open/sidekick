@@ -4,10 +4,11 @@ namespace AlwaysOpen\Sidekick\Tests\Helpers;
 
 use AlwaysOpen\Sidekick\Helpers\Arrays;
 use AlwaysOpen\Sidekick\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ArraysTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function mergeEmptyArrayIntoExisting()
     {
         $expected = [123];
@@ -17,7 +18,7 @@ class ArraysTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function mergeExistingArrayIntoEmpty()
     {
         $expected = [123];
@@ -27,7 +28,7 @@ class ArraysTest extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function mergeTwoNestedArrays()
     {
         $array1 = ['found' => [

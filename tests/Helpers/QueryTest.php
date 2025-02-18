@@ -5,10 +5,11 @@ namespace AlwaysOpen\Sidekick\Tests\Helpers;
 use AlwaysOpen\Sidekick\Helpers\Query;
 use AlwaysOpen\Sidekick\Tests\TestCase;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Attributes\Test;
 
 class QueryTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function simpleQuery()
     {
         $query = DB::table('fake');
@@ -19,7 +20,7 @@ class QueryTest extends TestCase
         $this->assertStringContainsString('fake', $sqlString);
     }
 
-    /** @test */
+    #[Test]
     public function complexQuery()
     {
         $query = DB::table('fake')

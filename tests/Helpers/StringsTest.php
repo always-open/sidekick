@@ -5,29 +5,30 @@ namespace AlwaysOpen\Sidekick\Tests\Helpers;
 use AlwaysOpen\Sidekick\Helpers\Strings;
 use AlwaysOpen\Sidekick\SidekickFacade;
 use AlwaysOpen\Sidekick\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class StringsTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function properlyChangesClassToJustName()
     {
         $this->assertNotEquals('Strings', Strings::class);
         $this->assertEquals('Strings', Strings::nameFromClass(Strings::class));
     }
 
-    /** @test */
+    #[Test]
     public function nullClassFromName()
     {
         $this->assertEquals('', Strings::modelClassFromName(null));
     }
 
-    /** @test */
+    #[Test]
     public function invalidClassFromName()
     {
         $this->assertEquals('Not A Class', Strings::modelClassFromName('Not A Class'));
     }
 
-    /** @test */
+    #[Test]
     public function properlyAddsSpacing()
     {
         $expected = 'My New Sentence';
@@ -35,7 +36,7 @@ class StringsTest extends TestCase
         $this->assertEquals($expected, Strings::pascalToSpaces($input));
     }
 
-    /** @test */
+    #[Test]
     public function properlyPrettifiesClassName()
     {
         $expected = 'Strings';
@@ -47,7 +48,7 @@ class StringsTest extends TestCase
         $this->assertEquals($expected, Strings::nameFromClassPretty(SidekickFacade::class));
     }
 
-    /** @test */
+    #[Test]
     public function properlyCreatesPascal()
     {
         $input = 'My New Sentence';
@@ -55,7 +56,7 @@ class StringsTest extends TestCase
         $this->assertEquals($expected, Strings::spacesToPascal($input));
     }
 
-    /** @test */
+    #[Test]
     public function properlyPrettifiesName()
     {
         $input = 'Strings';
