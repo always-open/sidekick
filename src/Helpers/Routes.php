@@ -2,6 +2,7 @@
 
 namespace AlwaysOpen\Sidekick\Helpers;
 
+/** @psalm-suppress ClassMustBeFinal */
 class Routes
 {
     public static function toRouteIfBackIsLoop(string $route, array $params = []) : string

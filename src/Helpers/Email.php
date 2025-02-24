@@ -2,6 +2,7 @@
 
 namespace AlwaysOpen\Sidekick\Helpers;
 
+/** @psalm-suppress ClassMustBeFinal */
 class Email
 {
     const DOMAIN_ALIASES = [

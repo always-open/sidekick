@@ -5,6 +5,7 @@ namespace AlwaysOpen\Sidekick\Helpers;
 use Domnikl\Statsd\Client;
 use Domnikl\Statsd\Connection\UdpSocket;
 
+/** @psalm-suppress ClassMustBeFinal */
 class StatsD
 {
     /**

@@ -7,41 +7,47 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderedObserver
 {
-    public function saving(Model $saving)
+    /** @psalm-suppress UndefinedMagicPropertyFetch, UndefinedMagicMethod */
+    public function saving(Model $model) : void
     {
-        if (null === $saving->{$saving::$_orderedColumn}) {
-            $saving->{$saving::$_orderedColumn} = $saving::max($saving::$_orderedColumn) + 1;
+        if (property_exists($model::class, '_orderedColumn') && null === $model->{$model::$_orderedColumn}) {
+            $model->{$model::$_orderedColumn} = $model::max($model::$_orderedColumn) + 1;
         }
     }
 
-    public function creating(Model $creating)
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    public function creating(Model $model) : void
     {
-        if ($creating->isDirty($creating::$_orderedColumn)) {
-            $this->updateImpactedOrderedSiblings($creating);
+        if (property_exists($model::class, '_orderedColumn') && $model->isDirty($model::$_orderedColumn)) {
+            $this->updateImpactedOrderedSiblings($model);
         }
     }
 
-    public function updating(Model $updating)
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    public function updating(Model $model) : void
     {
-        if ($updating->isDirty($updating::$_orderedColumn)) {
-            $this->updateImpactedOrderedSiblings($updating);
+        if (property_exists($model::class, '_orderedColumn') && $model->isDirty($model::$_orderedColumn)) {
+            $this->updateImpactedOrderedSiblings($model);
         }
     }
 
-    protected function updateImpactedOrderedSiblings(Model $model)
+    /** @psalm-suppress UndefinedMagicPropertyFetch */
+    protected function updateImpactedOrderedSiblings(Model $model) : void
     {
-        $oldSort = $model->getOriginal($model::$_orderedColumn) ?? PHP_INT_MAX;
-        $newSort = $model->{$model::$_orderedColumn};
-        $adjustmentAmount = $newSort > $oldSort ? -1 : 1;
+        if (property_exists($model::class, '_orderedColumn')) {
+            $oldSort = $model->getOriginal($model::$_orderedColumn) ?? PHP_INT_MAX;
+            $newSort = $model->{$model::$_orderedColumn};
+            $adjustmentAmount = $newSort > $oldSort ? -1 : 1;
 
-        app(get_class($model))->where($model::$_orderedColumn, '>=', min($oldSort, $newSort))
-            ->where($model::$_orderedColumn, '<=', max($oldSort, $newSort))
-            ->when($model->getKey(), function (Builder $builder) use ($model) {
-                $builder->where($model->getKeyName(), '!=', $model->getKey());
-            })
-            ->each(function (Model $instance) use ($adjustmentAmount) {
-                $instance->{$instance::$_orderedColumn} += $adjustmentAmount;
-                $instance->saveQuietly();
-            });
+            app(get_class($model))->where($model::$_orderedColumn, '>=', min($oldSort, $newSort))
+                ->where($model::$_orderedColumn, '<=', max($oldSort, $newSort))
+                ->when($model->getKey(), function (Builder $builder) use ($model) {
+                    $builder->where($model->getKeyName(), '!=', $model->getKey());
+                })
+                ->each(function (Model $instance) use ($adjustmentAmount) {
+                    $instance->{$instance::$_orderedColumn} += $adjustmentAmount;
+                    $instance->saveQuietly();
+                });
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace AlwaysOpen\Sidekick\Helpers;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+/** @psalm-suppress ClassMustBeFinal */
 class Strings
 {
     public static function nameFromClassPretty(String $className) : String
@@ -38,9 +39,9 @@ class Strings
         return $parsedName;
     }
 
-    public static function spacesToPascal(String $input) : String
+    public static function spacesToPascal(String $input) : string
     {
-        return preg_replace('/ /', '', $input);
+        return (string) preg_replace('/ /', '', $input) ?? '';
     }
 
     public static function nameFromClass(String $className) : String
@@ -56,7 +57,7 @@ class Strings
 
     public static function pascalToSpaces(String $input) : String
     {
-        return preg_replace('/(?<!^)(?<![A-Z])[A-Z]/', ' $0', $input);
+        return (string) preg_replace('/(?<!^)(?<![A-Z])[A-Z]/', ' $0', $input) ?? '';
     }
 
     public static function passwordGenerator(int $length = 4) : String

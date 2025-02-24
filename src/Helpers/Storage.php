@@ -7,6 +7,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage as StorageFacade;
 
+/** @psalm-suppress ClassMustBeFinal */
 class Storage
 {
     public static function storage(): Filesystem|FilesystemAdapter
@@ -43,13 +44,14 @@ class Storage
         return self::storage()->put($path, $contents, $options);
     }
 
-    public static function putFileAs(string $path, $contents, string $name, mixed $options = []) : string
+    public static function putFileAs(string $path, $contents, string $name, mixed $options = []) : bool|string
     {
         return self::storage()->putFileAs($path, $contents, $name, $options);
     }
 
     public static function url(string $path): string
     {
+        /** @psalm-suppress UndefinedInterfaceMethod */
         return self::storage()->url($path);
     }
 }

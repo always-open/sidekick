@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
+/** @psalm-suppress ClassMustBeFinal */
 class OrderedScope implements Scope
 {
     protected string $column;
@@ -22,6 +23,7 @@ class OrderedScope implements Scope
      * @param Builder $builder
      * @param Model   $model
      */
+    #[\Override]
     public function apply(Builder $builder, Model $model) : void
     {
         $builder->orderBy($model->getTable() . '.' . $this->column, $this->direction);

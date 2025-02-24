@@ -7,6 +7,7 @@ use Aws\S3\S3Client;
 use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
 use League\Flysystem\Filesystem;
 
+/** @psalm-suppress ClassMustBeFinal */
 class S3
 {
     /**

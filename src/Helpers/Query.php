@@ -4,6 +4,7 @@ namespace AlwaysOpen\Sidekick\Helpers;
 
 use Illuminate\Database\Query\Builder;
 
+/** @psalm-suppress ClassMustBeFinal */
 class Query
 {
     /**

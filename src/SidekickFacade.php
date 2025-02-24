@@ -5,10 +5,12 @@ namespace AlwaysOpen\Sidekick;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \AlwaysOpen\Sidekick\Sidekick
- */
+* @psalm-suppress ClassMustBeFinal
+* @see \AlwaysOpen\Sidekick\Sidekick
+*/
 class SidekickFacade extends Facade
 {
+    #[\Override]
     protected static function getFacadeAccessor()
     {
         return 'Sidekick';

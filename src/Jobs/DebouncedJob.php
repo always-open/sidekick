@@ -38,6 +38,10 @@ class DebouncedJob implements ShouldQueue
         $debouncer->_maximumMillisecondsToWait = $maximumMillisecondsToWait;
         $debouncer->calculateCacheKey();
 
+        /**
+         * @var Lock $lock
+         * @psalm-suppress UndefinedMagicMethod
+         */
         $lock = tap(Cache::lock($debouncer->getCacheKey(), 5))->block(3);
 
         try {
@@ -56,7 +60,7 @@ class DebouncedJob implements ShouldQueue
         return dispatch($debouncer);
     }
 
-    public function handle()
+    public function handle() : void
     {
         if ($this->_debounced) {
             return;
@@ -66,6 +70,7 @@ class DebouncedJob implements ShouldQueue
 
         /**
          * @var Lock $lock
+         * @psalm-suppress UndefinedMagicMethod
          */
         $lock = tap(Cache::lock($this->getCacheKey(), 6))->block(6);
 
@@ -80,7 +85,7 @@ class DebouncedJob implements ShouldQueue
         }
     }
 
-    public function getWaitTime() : int
+    public function getWaitTime() : int|float
     {
         $minimum = Cache::get($this->getMinimumWaitTimeKey()) ?? now();
         $maximum = Cache::get($this->getMaximumWaitTimeKey()) ?? $minimum;
@@ -103,7 +108,7 @@ class DebouncedJob implements ShouldQueue
 
     protected function checkAndWaitUntilReady() : void
     {
-        while (! $this->getWaitTime() > 0) {
+        while ($this->getWaitTime() <= 0) {
             $this->setDebounce();
             usleep(self::$MICROSECONDS_SLEEP);
         }
@@ -116,6 +121,7 @@ class DebouncedJob implements ShouldQueue
 
     protected function setDebounce() : void
     {
+        /** @psalm-suppress InvalidOperand */
         Cache::put($this->getDebounceKey(), true, now()->addMilliseconds($this->getWaitTime() * 2));
     }
 
