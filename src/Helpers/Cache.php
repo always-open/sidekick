@@ -16,10 +16,15 @@ class Cache
             }
 
             if (is_array($keyValues)) {
-                sort($keyValues);
+                // Sort arrays for consistent encoding
+                if (array_keys($keyValues) === range(0, count($keyValues) - 1)) {
+                    sort($keyValues);
+                } else {
+                    ksort($keyValues);
+                }
             }
 
-            $key .= md5(serialize($keyValues));
+            $key .= md5(json_encode($keyValues));
         }
 
         if ($key && $suffixes) {
