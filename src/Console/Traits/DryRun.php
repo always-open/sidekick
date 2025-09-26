@@ -8,7 +8,7 @@ trait DryRun
 
     public function initializeDryRun(): void
     {
-        if (!str_contains($this->signature, '--dry-run')) {
+        if (! str_contains($this->signature, '--dry-run')) {
             $this->signature .= self::DRYRUN_SIGNATURE;
         }
     }
