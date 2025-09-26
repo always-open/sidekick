@@ -6,6 +6,14 @@ use InvalidArgumentException;
 
 trait NumericOption
 {
+    /**
+     * Retrieve an option value and cast it to a numeric type.
+     *
+     * @param string $key   The option key to retrieve.
+     * @param string $type  The numeric type to cast to ('int' or 'float'). Defaults to 'int'.
+     * @return int|float|null  The numeric value of the option, or null if not set.
+     * @throws InvalidArgumentException If the value is not numeric or if the type is invalid.
+     */
     protected function numericOption(string $key, string $type = 'int'): int|float|null
     {
         $value = $this->option($key);
