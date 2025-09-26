@@ -10,7 +10,7 @@ trait ByName
 {
     use HasCache;
 
-    public static function byName(string $name): static|null
+    public static function byName(string $name): ?static
     {
         $cacheEnabled = config('sidekick.traits.cache_enabled');
 
