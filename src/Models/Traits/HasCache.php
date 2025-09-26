@@ -2,10 +2,6 @@
 
 namespace AlwaysOpen\Sidekick\Models\Traits;
 
-use AlwaysOpen\Sidekick\Helpers\Strings;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
-
 trait HasCache
 {
     protected static array $_cacheKeys = [];
