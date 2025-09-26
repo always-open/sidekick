@@ -2,6 +2,7 @@
 
 namespace AlwaysOpen\Sidekick\Models\Traits;
 
+use AlwaysOpen\Sidekick\Helpers\Cache as CacheHelper;
 use AlwaysOpen\Sidekick\Helpers\Strings;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -15,7 +16,7 @@ trait ByName
         $cacheEnabled = config('sidekick.traits.cache_enabled');
 
         if ($cacheEnabled) {
-            $key = \AlwaysOpen\Sidekick\Helpers\Cache::generateCacheKey(
+            $key = CacheHelper::generateCacheKey(
                 $name,
                 prefixes: [
                     'model',
