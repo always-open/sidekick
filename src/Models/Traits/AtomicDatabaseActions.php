@@ -42,7 +42,11 @@ trait AtomicDatabaseActions
 
     protected static function getAtomicCacheKey(array $attributes) : string
     {
-        sort($attributes);
+        try {
+            sort($attributes);
+        } catch (\Throwable $exception) {
+            ksort($attributes);
+        }
 
         return get_called_class() . ':' . md5(serialize($attributes));
     }
