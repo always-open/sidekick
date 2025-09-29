@@ -37,7 +37,7 @@ trait ByName
         $cacheEnabled = config('sidekick.traits.cache_enabled');
 
         if ($cacheEnabled) {
-            $key = \AlwaysOpen\Sidekick\Helpers\Cache::generateCacheKey(
+            $key = CacheHelper::generateCacheKey(
                 $names,
                 prefixes: [
                     'model',
