@@ -32,9 +32,12 @@ trait AtomicDatabaseActions
 
         return retry(3, function () use ($attributes, $values, $cache_key, $action) {
             $lock = Cache::lock($cache_key, 9);
-            $lock->block(3);
-            $instance = static::$action($attributes, $values);
-            $lock->release();
+            try {
+                $lock->block(3);
+                $instance = static::$action($attributes, $values);
+            } finally {
+                $lock->release();
+            }
 
             return $instance;
         });
