@@ -2,18 +2,18 @@ name: run-tests
 
 on:
   push:
-    branches: [main, 4.x, 5.x]
+    branches: [main, 4.x, 5.x, 6.x]
   pull_request:
-    branches: [main, 4.x, 5.x]
+    branches: [main, 4.x, 5.x, 6.x]
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        php: [8.2, 8.3, 8.4]
+        php: [8.3, 8.4, 8.5]
         laravel: [11.*, 12.*]
         stability: [prefer-stable]
 
