@@ -23,6 +23,7 @@ composer require always-open/sidekick
 | 4.x              | PHP 8.x+        |
 | 5.x              | PHP 8.2+        |
 | 6.x              | PHP 8.3+        |
+| 7.x              | PHP 8.3+, Laravel 12 and 13 |
 
 ## Usage
 

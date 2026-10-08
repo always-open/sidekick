@@ -8,7 +8,7 @@ trait CascadeUpdate
 {
     protected static function bootCascadeUpdate()
     {
-        parent::observe(CascadeUpdateObserver::class);
+        static::whenBooted(fn () => static::observe(CascadeUpdateObserver::class));
     }
 
     public function getRelationshipsToUpdate() : array

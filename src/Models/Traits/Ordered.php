@@ -11,7 +11,7 @@ trait Ordered
 
     protected static function bootOrdered()
     {
-        parent::observe(OrderedObserver::class);
+        static::whenBooted(fn () => static::observe(OrderedObserver::class));
         static::addGlobalScope(new OrderedScope(self::$_orderedColumn));
     }
 }
