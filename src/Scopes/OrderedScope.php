@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
-/** @psalm-suppress ClassMustBeFinal */
+/**
+ * @psalm-suppress ClassMustBeFinal
+ * @implements Scope<Model>
+ */
 class OrderedScope implements Scope
 {
     protected string $column;
